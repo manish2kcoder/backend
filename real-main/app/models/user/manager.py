@@ -94,7 +94,7 @@ class UserManager(TrendingManagerMixin, ManagerBase):
         }
         return User(user_item, self.clients, **kwargs) if user_item else None
 
-    def create_cognito_only_user(self, user_id, username, full_name=None):
+    def create_cognito_only_user(self, user_id, username, full_name=None, dob=None, gender=None):
         # try to claim the new username, will raise an validation exception if already taken
         self.validate.username(username)
         full_name = None if full_name == '' else full_name  # treat empty string like null
@@ -120,7 +120,7 @@ class UserManager(TrendingManagerMixin, ManagerBase):
 
         # create new user in the DB, have them follow the real user if they exist
         try:
-            item = self.dynamo.add_user(user_id, username, full_name=full_name, email=email, phone=phone,)
+            item = self.dynamo.add_user(user_id, username, full_name=full_name, email=email, phone=phone, dob=dob, gender=gender)
         except UserAlreadyExists:
             # un-claim the username in cognito
             if preferred_username:
@@ -133,7 +133,7 @@ class UserManager(TrendingManagerMixin, ManagerBase):
         self.follow_real_user(user)
         return user
 
-    def create_federated_user(self, provider, user_id, username, token, full_name=None):
+    def create_federated_user(self, provider, user_id, username, token, full_name=None, dob=None, gender=None):
         assert provider in ('apple', 'facebook'), f'Unrecognized identity provider `{provider}`'
         provider_client = self.clients[provider]
 
@@ -176,7 +176,7 @@ class UserManager(TrendingManagerMixin, ManagerBase):
             raise
 
         # create new user in the DB, have them follow the real user if they exist
-        item = self.dynamo.add_user(user_id, username, full_name=full_name, email=email)
+        item = self.dynamo.add_user(user_id, username, full_name=full_name, email=email, dob=dob, gender=gender)
         user = self.init_user(item)
         self.follow_real_user(user)
         return user

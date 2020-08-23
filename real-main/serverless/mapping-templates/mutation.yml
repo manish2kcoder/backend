@@ -352,3 +352,15 @@
   field: triggerPostNotification
   dataSource: NoneDataSource
   response: PassThru.response.vtl
+
+- type: Mutation
+  field: potentialMatches
+  dataSource: LambdaDataSource
+  request: Lambda.request.vtl
+  response: Lambda.response.vt
+
+- type: Mutation
+  field: matches
+  dataSource: LambdaDataSource
+  request: Lambda.request.vtl
+  response: Lambda.response.vt

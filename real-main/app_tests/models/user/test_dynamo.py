@@ -439,6 +439,32 @@ def test_set_user_privacy_status(user_dynamo):
     user_item = user_dynamo.set_user_privacy_status(user_id, UserPrivacyStatus.PUBLIC)
     assert user_item['privacyStatus'] == UserPrivacyStatus.PUBLIC
 
+def test_set_user_dob(user_dynamo):
+    user_id = 'my-user-id'
+    username = 'my-username'
+    dob = '15.08.1988'
+    user_item = user_dynamo.add_user(user_id, username,dob=dob)
+    assert user_item['dob'] == dob
+
+def test_user_empty_dob(user_dynamo):
+    user_id = 'my-user-id'
+    username = 'my-username'
+    user_item = user_dynamo.add_user(user_id, username)
+    assert user_item['dob'] == None
+
+def test_set_user_gender(user_dynamo):
+    user_id = 'my-user-id'
+    username = 'my-username'
+    gender = 'M'
+    user_item = user_dynamo.add_user(user_id, username,gender=gender)
+    assert user_item['gender'] == 'M'
+
+def test_user_empty_gender(user_dynamo):
+    user_id = 'my-user-id'
+    username = 'my-username'
+    user_item = user_dynamo.add_user(user_id, username)
+    assert user_item['gender'] == None
+
 
 @pytest.mark.parametrize(
     'incrementor_name, decrementor_name, attribute_name',

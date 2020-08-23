@@ -110,7 +110,9 @@ type Mutation {
     sharingDisabled: Boolean,
     verificationHidden: Boolean,
     languageCode: String,
-    themeCode: String
+    themeCode: String,
+    gender: String,
+    dob: String,
   ): User
 
   # Various one-off user property setters
