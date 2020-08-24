@@ -18,16 +18,16 @@ def test_parse_pk(match_dynamo):
     assert post_id == 'pid'
 
 @pytest.fixture
-def test_get_common_likes(match_dynamo):
-    generate_test_data()
+def test_get_common_likes(like_dynamo,match_dynamo):
+    generate_test_data(like_dynamo)
     matches = match_dynamo.get_common_likes('lbuid')
     assert matches is None
     assert len(matches) == 1
 
-def generate_test_data():
+def generate_test_data(like_dynamo):
     # lbuid likes pbuid
     liked_by_user_id = 'lbuid'
-    like_status = LikeStatus.ONYMOUSLY_LIKED
+    like_status = LikeStatus.ANONYMOUSLY_LIKED
     post_id = 'pid'
     post_item = {
         'postId': post_id,
