@@ -19,19 +19,18 @@ from app.models.follower.enums import FollowStatus
 from app.models.follower.exceptions import FollowerException
 from app.models.like.enums import LikeStatus
 from app.models.like.exceptions import LikeException
-from app.models.match.manager import MatchManager
 from app.models.post.enums import PostStatus, PostType
 from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
 from app.models.user.exceptions import UserException
 from app.utils import image_size
+
+from .. import xray
 from . import routes
 from .exceptions import ClientException
-from .. import xray
 
 S3_UPLOADS_BUCKET = os.environ.get('S3_UPLOADS_BUCKET')
 S3_PLACEHOLDER_PHOTOS_BUCKET = os.environ.get('S3_PLACEHOLDER_PHOTOS_BUCKET')
-
 MATCH_PAGE_SIZE = 10
 
 logger = logging.getLogger()
