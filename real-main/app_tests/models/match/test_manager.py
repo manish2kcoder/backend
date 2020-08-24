@@ -74,13 +74,10 @@ def like_post(like_manager, user1, user2, user2_posts):
     assert like_manager.get_like(user1.id, post.id) is None
     assert like_manager.get_like(user2.id, post.id) is None
 
-    # like post, verify like exists
-    like_manager.like_post(user1, post, LikeStatus.ANONYMOUSLY_LIKED)
+    # like post
+    like_manager.like_post(user1, post, LikeStatus.ONYMOUSLY_LIKED)
     like = like_manager.get_like(user1.id, post.id)
-    assert like.item['likeStatus'] == LikeStatus.ANONYMOUSLY_LIKED
 
-    # like post the other way, verify like exists
+    # like post the other way
     like_manager.like_post(user2, post, LikeStatus.ONYMOUSLY_LIKED)
     like = like_manager.get_like(user2.id, post.id)
-    assert like.item['likeStatus'] == LikeStatus.ONYMOUSLY_LIKED
-
