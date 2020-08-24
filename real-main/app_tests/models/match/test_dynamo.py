@@ -4,8 +4,10 @@ import pytest
 from app.models.match.dynamo import MatchDynamo
 from app.models.like.enums import LikeStatus
 
+
 def match_dynamo(dynamo_client):
     yield MatchDynamo(dynamo_client)
+
 
 @pytest.fixture
 def test_parse_pk(match_dynamo):
@@ -17,12 +19,14 @@ def test_parse_pk(match_dynamo):
     assert liked_by_user_id == 'lbuid'
     assert post_id == 'pid'
 
+
 @pytest.fixture
-def test_get_common_likes(like_dynamo,match_dynamo):
+def test_get_common_likes(like_dynamo, match_dynamo):
     generate_test_data(like_dynamo)
     matches = match_dynamo.get_common_likes('lbuid')
     assert matches is None
     assert len(matches) == 1
+
 
 def generate_test_data(like_dynamo):
     # lbuid likes pbuid
