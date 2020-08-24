@@ -67,6 +67,7 @@ post_manager = managers.get('post') or models.PostManager(clients, managers=mana
 user_manager = managers.get('user') or models.UserManager(clients, managers=managers)
 match_manager = managers.get('match') or models.MatchManager(clients, managers=managers)
 
+
 def validate_caller(func):
     "Decorator that inits a caller_user model and verifies the caller is ACTIVE"
 
@@ -88,7 +89,9 @@ def create_cognito_only_user(caller_user_id, arguments, source, context):
     dob = arguments.get('dob')
     gender = arguments.get('gender')
     try:
-        user = user_manager.create_cognito_only_user(caller_user_id, username, full_name=full_name, dob=dob, gender=gender)
+        user = user_manager.create_cognito_only_user(
+            caller_user_id, username, full_name=full_name, dob=dob, gender=gender
+        )
     except UserException as err:
         raise ClientException(str(err))
     return user.serialize(caller_user_id)
@@ -103,8 +106,7 @@ def create_apple_user(caller_user_id, arguments, source, context):
     gender = arguments['gender']
     try:
         user = user_manager.create_federated_user(
-            'apple', caller_user_id, username, apple_token, full_name=full_name,
-            dob=dob, gender=gender
+            'apple', caller_user_id, username, apple_token, full_name=full_name, dob=dob, gender=gender
         )
     except UserException as err:
         raise ClientException(str(err))
@@ -1217,24 +1219,32 @@ def lambda_server_error(caller_user_id, arguments, source, context):
 ##############################################################
 
 """Returns count of all user ids that can be potential matches for this user"""
+
+
 @routes.register('Mutation.potentialMatchesPageCount')
 def get_potential_matches_count(caller_user_id, arguments, source, context):
     try:
         potential_matches = MatchManager().get_potential_matches(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
-    return len(potential_matches)/MATCH_PAGE_SIZE # Will need to serialize for http
+    return len(potential_matches) / MATCH_PAGE_SIZE  # Will need to serialize for http
+
 
 """Returns count of all user ids that the passed user id has liked messages from"""
+
+
 @routes.register('Mutation.matchesPageCount')
 def get_matches(caller_user_id, arguments, source, context):
     try:
         match_list = MatchManager().get_common_likes(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
-    return len(match_list)/MATCH_PAGE_SIZE # Will need to serialize for http
+    return len(match_list) / MATCH_PAGE_SIZE  # Will need to serialize for http
+
 
 """Returns all user ids that can be potential matches for this user. Returns the passed page_num matches only. Else returns all matches"""
+
+
 @routes.register('Mutation.potentialMatches')
 def get_potential_matches(caller_user_id, arguments, source, context):
     page_num = arguments["page_num"]
@@ -1243,13 +1253,16 @@ def get_potential_matches(caller_user_id, arguments, source, context):
     except UserException as err:
         raise ClientException(str(err))
     if page_num:
-        start_indx = page_num*MATCH_PAGE_SIZE
-        end_indx = start_indx+MATCH_PAGE_SIZE
+        start_indx = page_num * MATCH_PAGE_SIZE
+        end_indx = start_indx + MATCH_PAGE_SIZE
         if start_indx >= len(potential_matches) and end_indx <= len(potential_matches):
             return potential_matches[start_indx:end_indx]
     return potential_matches  # Will need to serialize for http
 
+
 """Returns all user ids that the passed user id has liked messages from. Returns the passed page_num matches only. Else returns all matches"""
+
+
 @routes.register('Mutation.matches')
 def get_matches(caller_user_id, arguments, source, context):
     page_num = arguments["page_num"]
