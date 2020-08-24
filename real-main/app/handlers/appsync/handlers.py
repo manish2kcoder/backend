@@ -1,7 +1,7 @@
+import pendulum
 import logging
 import os
 
-import pendulum
 from app import clients, models
 from app.mixins.flag.enums import FlagStatus
 from app.mixins.flag.exceptions import FlagException
