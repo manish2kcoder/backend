@@ -5,7 +5,6 @@ import pendulum
 from app import clients, models
 from app.mixins.flag.enums import FlagStatus
 from app.mixins.flag.exceptions import FlagException
-from app.models import LikeManager, MatchManager
 from app.models.album.exceptions import AlbumException
 from app.models.appstore.exceptions import AppStoreException
 from app.models.block.enums import BlockStatus
@@ -19,6 +18,7 @@ from app.models.follower.enums import FollowStatus
 from app.models.follower.exceptions import FollowerException
 from app.models.like.enums import LikeStatus
 from app.models.like.exceptions import LikeException
+from app.models.match.manager import MatchManager
 from app.models.post.enums import PostStatus, PostType
 from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
