@@ -31,7 +31,7 @@ def test_get_matches(user_manager, cognito_client, like_manager, post_manager):
 # Creates 2 users, posts from both and likes second's post from first id
 def generate_test_data_potential_match(user_manager, cognito_client, like_manager, post_manager):
     first_user = user1(user_manager, cognito_client)
-    first_user_post = user1_posts(post_manager, first_user)
+    user1_posts(post_manager, first_user)
     second_user = user1(user_manager, cognito_client)
     second_user_post = user2_posts(post_manager, second_user)
     like_post(like_manager, first_user, second_user, second_user_post)
@@ -85,4 +85,4 @@ def like_post(like_manager, user1, user2, user2_posts):
 
     # like post the other way
     like_manager.like_post(user2, post, LikeStatus.ONYMOUSLY_LIKED)
-    like = like_manager.get_like(user2.id, post.id)
+    like_manager.get_like(user2.id, post.id)
