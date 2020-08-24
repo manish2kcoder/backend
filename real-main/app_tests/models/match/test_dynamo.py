@@ -27,7 +27,7 @@ def test_get_common_likes(like_dynamo,match_dynamo):
 def generate_test_data(like_dynamo):
     # lbuid likes pbuid
     liked_by_user_id = 'lbuid'
-    like_status = LikeStatus.ANONYMOUSLY_LIKED
+    like_status = LikeStatus.ONYMOUSLY_LIKED
     post_id = 'pid'
     post_item = {
         'postId': post_id,
