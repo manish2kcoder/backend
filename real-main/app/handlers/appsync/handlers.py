@@ -1,6 +1,7 @@
-import pendulum
 import logging
 import os
+
+import pendulum
 
 from app import clients, models
 from app.mixins.flag.enums import FlagStatus
@@ -24,10 +25,9 @@ from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
 from app.models.user.exceptions import UserException
 from app.utils import image_size
-
-from .. import xray
 from . import routes
 from .exceptions import ClientException
+from .. import xray
 
 S3_UPLOADS_BUCKET = os.environ.get('S3_UPLOADS_BUCKET')
 S3_PLACEHOLDER_PHOTOS_BUCKET = os.environ.get('S3_PLACEHOLDER_PHOTOS_BUCKET')
