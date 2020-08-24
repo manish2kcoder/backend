@@ -23,7 +23,6 @@ from app.models.post.enums import PostStatus, PostType
 from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
 from app.models.user.exceptions import UserException
-from app.models.match.manager import MatchManager
 from app.utils import image_size
 
 from .. import xray
@@ -1223,7 +1222,7 @@ def lambda_server_error(caller_user_id, arguments, source, context):
 @routes.register('Mutation.potentialMatchesPageCount')
 def get_potential_matches_count(caller_user_id, arguments, source, context):
     try:
-        potential_matches = MatchManager().get_potential_matches(caller_user_id)
+        potential_matches = match_manager.get_potential_matches(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
     return len(potential_matches) / MATCH_PAGE_SIZE  # Will need to serialize for http
@@ -1235,7 +1234,7 @@ def get_potential_matches_count(caller_user_id, arguments, source, context):
 @routes.register('Mutation.matchesPageCount')
 def get_matches(caller_user_id, arguments, source, context):
     try:
-        match_list = MatchManager().get_common_likes(caller_user_id)
+        match_list = match_manager.get_common_likes(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
     return len(match_list) / MATCH_PAGE_SIZE  # Will need to serialize for http
@@ -1248,7 +1247,7 @@ def get_matches(caller_user_id, arguments, source, context):
 def get_potential_matches(caller_user_id, arguments, source, context):
     page_num = arguments["page_num"]
     try:
-        potential_matches = MatchManager().get_potential_matches(caller_user_id)
+        potential_matches = match_manager.get_potential_matches(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
     if page_num:
@@ -1266,7 +1265,7 @@ def get_potential_matches(caller_user_id, arguments, source, context):
 def get_matches(caller_user_id, arguments, source, context):
     page_num = arguments["page_num"]
     try:
-        match_list = MatchManager().get_common_likes(caller_user_id)
+        match_list = match_manager.get_common_likes(caller_user_id)
     except UserException as err:
         raise ClientException(str(err))
     if page_num:
