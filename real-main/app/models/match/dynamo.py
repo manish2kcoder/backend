@@ -22,6 +22,7 @@ class MatchDynamo:
         return liked_by_user_id, post_id
 
     """Get users who is common with this user in likes. i.e. both liked each other's posts"""
+
     def get_common_likes(self, liked_by_user_id):
         query_kwargs = {
             'KeyConditionExpression': Key('gsiA1PartitionKey').eq(f'like/{liked_by_user_id}'),
@@ -30,6 +31,6 @@ class MatchDynamo:
         liked_users = self.client.generate_all_query(query_kwargs)
         matches = []
         for liked_user in liked_users:
-            if(liked_user["likedByUserId"] == liked_by_user_id):
+            if liked_user["likedByUserId"] == liked_by_user_id:
                 matches.append(liked_user)
         return matches

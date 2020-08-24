@@ -2,6 +2,7 @@ import logging
 
 from app import models
 from .dynamo import MatchDynamo
+
 logger = logging.getLogger()
 
 
@@ -15,6 +16,7 @@ class MatchManager:
             self.dynamo = MatchDynamo(clients['dynamo'])
 
     """ All users not in contact list and with mutual friends should ideally be potential matches """
+
     def get_potential_matches(self, user_id):
         potential_matches = []
         # This user's followers list
@@ -30,5 +32,6 @@ class MatchManager:
         return potential_matches
 
     """People with mutual likes"""
+
     def get_matches(self, user_id):
         return self.dynamo.get_common_likes(user_id)
