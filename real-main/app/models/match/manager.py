@@ -1,6 +1,7 @@
 import logging
 
 from app import models
+
 from .dynamo import MatchDynamo
 
 logger = logging.getLogger()

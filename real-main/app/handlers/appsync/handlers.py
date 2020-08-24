@@ -2,10 +2,10 @@ import logging
 import os
 
 import pendulum
-
 from app import clients, models
 from app.mixins.flag.enums import FlagStatus
 from app.mixins.flag.exceptions import FlagException
+from app.models import LikeManager, MatchManager
 from app.models.album.exceptions import AlbumException
 from app.models.appstore.exceptions import AppStoreException
 from app.models.block.enums import BlockStatus
@@ -24,7 +24,6 @@ from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
 from app.models.user.exceptions import UserException
 from app.utils import image_size
-from app.models import LikeManager, MatchManager
 
 from .. import xray
 from . import routes

@@ -1,8 +1,7 @@
 import pendulum
 import pytest
-
-from app.models.match.dynamo import MatchDynamo
 from app.models.like.enums import LikeStatus
+from app.models.match.dynamo import MatchDynamo
 
 
 def match_dynamo(dynamo_client):

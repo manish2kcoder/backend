@@ -1,11 +1,10 @@
 import uuid
 
 import pytest
-
 from app.models.like.enums import LikeStatus
-from app.models.post.enums import PostType
 from app.models.match.manager import MatchManager
-from app_tests.conftest import user_manager, cognito_client, post_manager, like_manager
+from app.models.post.enums import PostType
+from app_tests.conftest import cognito_client, like_manager, post_manager, user_manager
 
 FIRST_USER_ID = ''
 SECOND_USER_ID = ''
