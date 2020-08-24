@@ -23,8 +23,8 @@ from app.models.post.enums import PostStatus, PostType
 from app.models.post.exceptions import PostException
 from app.models.user.enums import UserStatus
 from app.models.user.exceptions import UserException
-from app.utils import image_size
 from app.models.match.manager import MatchManager
+from app.utils import image_size
 
 from .. import xray
 from . import routes
