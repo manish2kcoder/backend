@@ -450,7 +450,7 @@ def test_user_empty_dob(user_dynamo):
     user_id = 'my-user-id'
     username = 'my-username'
     user_item = user_dynamo.add_user(user_id, username)
-    assert user_item['dob'] == None
+    assert 'dob' not in user_item
 
 def test_set_user_gender(user_dynamo):
     user_id = 'my-user-id'
@@ -463,7 +463,7 @@ def test_user_empty_gender(user_dynamo):
     user_id = 'my-user-id'
     username = 'my-username'
     user_item = user_dynamo.add_user(user_id, username)
-    assert user_item['gender'] == None
+    assert  'gender' not in user_item
 
 
 @pytest.mark.parametrize(
