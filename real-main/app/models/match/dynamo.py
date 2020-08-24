@@ -1,4 +1,3 @@
-import functools
 import logging
 
 from boto3.dynamodb.conditions import Key

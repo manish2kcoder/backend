@@ -81,7 +81,7 @@ def like_post(like_manager, user1, user2, user2_posts):
 
     # like post
     like_manager.like_post(user1, post, LikeStatus.ONYMOUSLY_LIKED)
-    like = like_manager.get_like(user1.id, post.id)
+    like_manager.get_like(user1.id, post.id)
 
     # like post the other way
     like_manager.like_post(user2, post, LikeStatus.ONYMOUSLY_LIKED)

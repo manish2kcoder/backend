@@ -1220,7 +1220,7 @@ def lambda_server_error(caller_user_id, arguments, source, context):
 
 
 @routes.register('Mutation.potentialMatchesPageCount')
-def get_potential_matches_count(caller_user_id, arguments, source, context):
+def get_potential_matches__page_count(caller_user_id, arguments, source, context):
     try:
         potential_matches = match_manager.get_potential_matches(caller_user_id)
     except UserException as err:
@@ -1232,7 +1232,7 @@ def get_potential_matches_count(caller_user_id, arguments, source, context):
 
 
 @routes.register('Mutation.matchesPageCount')
-def get_matches(caller_user_id, arguments, source, context):
+def get_matches_page_count(caller_user_id, arguments, source, context):
     try:
         match_list = match_manager.get_common_likes(caller_user_id)
     except UserException as err:
